@@ -43,19 +43,3 @@ Este proyecto es una práctica personal desarrollada para mejorar mis habilidade
 - **Despliegue**: Netlify
 - **API utilizada**: [PokeAPI](https://pokeapi.co/)
 
----
-
-## 📂 Estructura del Proyecto
-
-src/
-├── assets/ # Archivos estáticos, como imágenes y recursos adicionales.
-│ └── logo.png # Ejemplo de archivo de imagen
-├── components/ # Componentes reutilizables de Vue, como el Header o Footer
-│ └── PokemonCard.vue # Componente para mostrar los detalles de un Pokémon
-├── views/ # Vistas principales de la aplicación
-│ └── Home.vue # Vista que muestra la lista de Pokémon
-│ └── PokemonDetail.vue # Vista que muestra los detalles de un Pokémon individual
-├── router/ # Configuración de las rutas con Vue Router
-│ └── index.js # Definición de rutas para la aplicación
-├── App.vue # Componente raíz principal de la aplicación
-└── main.js # Punto de entrada de la aplicación, donde se inicializa Vue
