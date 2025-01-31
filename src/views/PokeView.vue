@@ -1,58 +1,54 @@
 <script setup>
-import axios from "axios";
-import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import {useGetData} from '@/composables/getData'
+import { useFavoritosStore } from "@/store/favoritos";
+
 
 const route = useRoute();
 const router = useRouter();
+const useFavoritos = useFavoritosStore()
 
-const poke = ref({});
+const {add, findPoke}= useFavoritos
+const {data, getData, loading, error} = useGetData()
 
 const back = () => {
   router.push("/pokemons");
 };
 
-const getData = async () => {
-  try {
-    const { data } = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${route.params.name}`
-    );
-    poke.value = data;
-  } catch (error) {
-    console.log(error);
-    poke.value = null;
-  }
-};
-getData();
+getData(`https://pokeapi.co/api/v2/pokemon/${route.params.name}`);
 </script>
 
 <template>
   <div class="container mt-5">
-    <div v-if="poke" class="text-center">
+    <p v-if="loading">Cargando informacion...</p>
+    <div class="alert alert-danger" v-if="error">{{ error }}</div>
+
+    <div v-if="data" class="text-center">
       <img
-        :src="poke.sprites?.front_default"
+        :src="data.sprites?.front_default"
         alt="Pokemon Image"
         class="pokemon-image mb-3"
       />
       <h1 class="text-dark">{{ $route.params.name.toLocaleUpperCase() }}</h1>
+      <button :disabled="findPoke(data.name)" class="btn btn-primary"  @click="add(data)">Agregar Favoritos</button>
       <ul class="list-group mt-4">
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <strong>Height:</strong>
-          <span>{{ poke.height }} decimetres</span>
+          <span>{{ data.height }} decimetres</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <strong>Weight:</strong>
-          <span>{{ poke.weight }} hectograms</span>
+          <span>{{ data.weight }} hectograms</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <strong>Base Experience:</strong>
-          <span>{{ poke.base_experience }}</span>
+          <span>{{ data.base_experience }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <strong>Abilities:</strong>
           <span>
-            <span v-for="(ability, index) in poke.abilities" :key="index">
-              {{ ability.ability.name }}<span v-if="index !== poke.abilities.length - 1">, </span>
+            <span v-for="(ability, index) in data.abilities" :key="index">
+              {{ ability.ability.name }}<span v-if="index !== data.abilities.length - 1">, </span>
             </span>
           </span>
         </li>

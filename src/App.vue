@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container-fluid">
       <!-- Logo y Título -->
       <router-link class="navbar-brand d-flex align-items-center" to="/">
@@ -40,6 +40,11 @@ import { RouterLink, RouterView } from "vue-router";
           <li class="nav-item">
             <router-link class="nav-link btn btn-outline-secondary" to="/pokemons">
               Pokemons
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link btn btn-outline-secondary" to="/favoritos">
+              Favoritos
             </router-link>
           </li>
         </ul>
